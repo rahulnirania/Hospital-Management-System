@@ -24,7 +24,7 @@ CREATE TABLE Flight (
 CREATE TABLE Reservation (
 	Flight_Number VARCHAR(30) NOT NULL,
 	Seat_Number VARCHAR(10) NOT NULL,
-	Date DATETIME NOT NULL,
+	Date DATE NOT NULL,
 	Passenger_Name VARCHAR(100) NOT NULL,
 	PRIMARY KEY (Flight_Number, Seat_Number, Date),
 	FOREIGN KEY (Flight_Number) REFERENCES Flight (Number)
