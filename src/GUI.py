@@ -5,6 +5,8 @@ from PyQt4 import QtGui
 from PyQt4 import QtCore
 #from AssignDBMS import *
 from insert_patient import add_patient
+from insert_doctor import add_doctor
+from insert_staff import add_staff
 Name = "";
 Gender = "";
 DOB = "";
@@ -158,9 +160,11 @@ def insert_patient():
       print(str(Name),str(Gender),str(DOB),str(Mother_name),str(Contact),str(Address), str(Weight), str(Admitted));
 
 def insert_doctor():
+      add_doctor(str(Name), str(Gender), str(DOB), str(Qual), str(Contact), str(Address), str(email), str(salary), str(Dpt))
       print(str(Name),str(Gender),str(DOB),str(Qual),str(Contact),str(Address), str(email), str(salary));
 
 def insert_staff():
+      add_staff(str(Name), str(Gender), str(DOB), str(Qual), str(Contact), str(Address), str(email), str(salary), str(types))
       print(str(Name),str(Gender),str(DOB),str(Qual),str(Contact),str(Address), str(email), str(salary), str(types));
 
 class tabdemo(QTabWidget):
