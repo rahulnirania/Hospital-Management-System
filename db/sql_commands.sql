@@ -4,7 +4,7 @@ use hms;
 grant all privileges on hms.* to 'admin'@'localhost';
 
 CREATE TABLE Patient (
-	patient_id INT NOT NULL,
+	patient_id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(50) NOT NULL,
 	gender ENUM ('M', 'F') NOT NULL,
 	dob DATE NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE Patient (
 );
 
 CREATE TABLE Doctor (
-	doctor_id INT NOT NULL,
+	doctor_id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(50) NOT NULL,
 	dob DATE NOT NULL,
 	gender ENUM ('M', 'F') NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE Doctor (
 );
 
 CREATE TABLE Staff (
-	staff_id INT NOT NULL,
+	staff_id INT NOT NULL AUTO_INCREMENT,
 	type ENUM ('Consultant', 'Intern', 'Nurse'),
 	name VARCHAR(50) NOT NULL,
 	dob DATE NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE Staff (
 );
 
 CREATE TABLE Ward (
-	ward_id INT NOT NULL,
+	ward_id INT NOT NULL AUTO_INCREMENT,
 	no_of_beds INT NOT NULL,
 	class VARCHAR(10) NOT NULL,
 	current_status INT NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE Ward (
 );
 
 CREATE TABLE Bed (
-	bed_id INT NOT NULL,
+	bed_id INT NOT NULL AUTO_INCREMENT,
 	ward_id INT NOT NULL,
 	patient_id INT NOT NULL,
 	PRIMARY KEY (bed_id),
@@ -72,20 +72,20 @@ CREATE TABLE Inpatient (
 
 CREATE TABLE Lab_Report (
 	lab_id INT NOT NULL,
-	report_id INT NOT NULL,
+	report_id INT NOT NULL AUTO_INCREMENT,
 	patient_id INT NOT NULL,
 	doctor_id INT NOT NULL,
 	date DATE NOT NULL,
 	test_type VARCHAR(100) NOT NULL,
 	result ENUM ('positive', 'negative'),
 	amount INT NOT NULL,
-	PRIMARY KEY (lab_id, report_id),
+	PRIMARY KEY (report_id),
 	FOREIGN KEY (patient_id) REFERENCES Patient (patient_id),
 	FOREIGN KEY (doctor_id) REFERENCES Doctor (doctor_id)
 );
 
 CREATE TABLE Stock (
-	stock_id INT NOT NULL,
+	stock_id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
 	price INT NOT NULL,
 	description VARCHAR(100) NOT NULL,
