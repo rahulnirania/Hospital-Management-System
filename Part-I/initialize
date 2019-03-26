@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# first create a user admin with password admin
+
+sudo mysql < sql_q1.sql
+
+sudo mysql < sql_q3.sql
+
+pip3 install -r requirements.txt
+
+python3 generate_data_q1.py
+
+python3 generate_data_q3.py
+
+python3 queries.py
