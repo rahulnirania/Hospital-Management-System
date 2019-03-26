@@ -1,4 +1,4 @@
--- create user 'admin'@'localhost' identified by 'admin';
+create user 'admin'@'localhost' identified by 'admin';
 create database assignment_2;
 
 use assignment_2;

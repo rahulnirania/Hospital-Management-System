@@ -7,6 +7,8 @@ from PyQt4 import QtCore
 from insert_patient import add_patient
 from insert_doctor import add_doctor
 from insert_staff import add_staff
+from display_tables import *
+
 Name = "";
 Gender = "";
 DOB = "";
@@ -159,13 +161,131 @@ def insert_patient():
       add_patient(str(Name), str(Gender), str(DOB), str(Mother_name), str(Contact), str(Address), Weight, str(Admitted))
       print(str(Name),str(Gender),str(DOB),str(Mother_name),str(Contact),str(Address), str(Weight), str(Admitted));
 
+def insert_pid():
+   msg = QMessageBox()
+   msg.setIcon(QMessageBox.Information)
+   msg.setText("Confirm your detail")
+   #msg.setInformativeText("This is additional information")
+   msg.setWindowTitle("Detail");
+   a = get_column_from_table("name", "Doctor");
+   b = get_column_from_table("department", "Doctor");
+   st = "";
+   for i in xrange(len(a)):
+      st = st + str(i+1) + "\t" + a[i][0] + "   " + b[i][0] + "\n";
+   msg.setDetailedText("{}".format(st))
+   msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+   msg.buttonClicked.connect(msgbtn)
+   retval = msg.exec_()
+   print ("value of pressed message box button:"), retval
+
 def insert_doctor():
       add_doctor(str(Name), str(Gender), str(DOB), str(Qual), str(Contact), str(Address), str(email), str(salary), str(Dpt))
-      print(str(Name),str(Gender),str(DOB),str(Qual),str(Contact),str(Address), str(email), str(salary));
+      print(str(Name),str(Gender),str(DOB),str(Qual),str(Contact),str(Address), str(email), str(salary), str(Dpt));
 
 def insert_staff():
       add_staff(str(Name), str(Gender), str(DOB), str(Qual), str(Contact), str(Address), str(email), str(salary), str(types))
       print(str(Name),str(Gender),str(DOB),str(Qual),str(Contact),str(Address), str(email), str(salary), str(types));
+
+def Search_Doctor():
+      print(str(Dpt), str(curr), str(crit), str(Date));
+
+def Ward_by_class():
+      print(str(clss));
+
+def Ward_det():
+      print(str(ward));
+
+def Bed_det():
+      print(str(bed), str(ward))
+
+def msgbtn(i):
+   print ("Button pressed is:"),i.text()
+
+def aldoc():
+   msg = QMessageBox()
+   msg.setIcon(QMessageBox.Information)
+   msg.setText("Want to see all doctors")
+   #msg.setInformativeText("This is additional information")
+   msg.setWindowTitle("All Doctors");
+   a = get_column_from_table("name", "Doctor");
+   b = get_column_from_table("department", "Doctor");
+   st = "";
+   for i in xrange(len(a)):
+      st = st + str(i+1) + "\t" + a[i][0] + "   " + b[i][0] + "\n";
+   msg.setDetailedText("{}".format(st))
+   msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+   msg.buttonClicked.connect(msgbtn)
+   retval = msg.exec_()
+   print ("value of pressed message box button:"), retval
+
+def almed():
+   msg = QMessageBox()
+   msg.setIcon(QMessageBox.Information)
+   msg.setText("Want to see all Medicines")
+   #msg.setInformativeText("This is additional information")
+   msg.setWindowTitle("All Medicines");
+   a = get_column_from_table_c("name", "Stock", "type", "Medicine");
+   b = get_column_from_table_c("price", "Stock", "type", "Medicine");
+   st = "";
+   for i in xrange(len(a)):
+      st = st + str(i+1) + "\t" + a[i][0] + "   " + str(b[i][0]) + "\n";
+   msg.setDetailedText("{}".format(st))
+   msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+   msg.buttonClicked.connect(msgbtn)
+   retval = msg.exec_()
+   print ("value of pressed message box button:"), retval
+
+def aleqp():
+   msg = QMessageBox()
+   msg.setIcon(QMessageBox.Information)
+   msg.setText("Want to see all Equipment")
+   #msg.setInformativeText("This is additional information")
+   msg.setWindowTitle("All Eqp");
+   a = get_column_from_table_c("name", "Stock", "type", "Equipment");
+   b = get_column_from_table_c("price", "Stock", "type", "Equipment");
+   st = "";
+   for i in xrange(len(a)):
+      st = st + str(i+1) + "\t" + a[i][0] + "   " + str(b[i][0]) + "\n";
+   msg.setDetailedText("{}".format(st))
+   msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+   msg.buttonClicked.connect(msgbtn)
+   retval = msg.exec_()
+   print ("value of pressed message box button:"), retval
+
+def alstf():
+   msg = QMessageBox()
+   msg.setIcon(QMessageBox.Information)
+   msg.setText("Want to see all staff")
+   #msg.setInformativeText("This is additional information")
+   msg.setWindowTitle("All Staff");
+   a = get_column_from_table("name", "Staff");
+   b = get_column_from_table("type", "Staff");
+   st = "";
+   for i in xrange(len(a)):
+      st = st + str(i+1) + "\t" + a[i][0] + "   " + b[i][0] + "\n";
+   msg.setDetailedText("{}".format(st))
+   msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+   msg.buttonClicked.connect(msgbtn)
+   retval = msg.exec_()
+   print ("value of pressed message box button:"), retval
+
+def alwrd():
+   msg = QMessageBox()
+   msg.setIcon(QMessageBox.Information)
+   msg.setText("Want to see all Ward")
+   #msg.setInformativeText("This is additional information")
+   msg.setWindowTitle("All Ward list");
+   a = get_column_from_table("no_of_beds", "Ward");
+   b = get_column_from_table("class", "Ward");
+   c = get_column_from_table("current_status", "Ward");
+   st = "";
+   for i in xrange(len(a)):
+      st = st + str(i+1) + "\t" + str(a[i][0]) + "   "+ b[i][0] + "   "+ str(c[i][0])+ "\n";
+   msg.setDetailedText("{}".format(st))
+   msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+   msg.buttonClicked.connect(msgbtn)
+   retval = msg.exec_()
+   print ("value of pressed message box button:"), retval
 
 class tabdemo(QTabWidget):
    def __init__(self, parent = None):
@@ -224,13 +344,13 @@ class tabdemo(QTabWidget):
       e7 = QLineEdit()
       e8 = QLineEdit()
       layout.addRow("Name",e1)
-      layout.addRow("Gender",e2)
+      layout.addRow("Gender (M/F)",e2)
       layout.addRow("DOB",e3)
       layout.addRow("Mother's Name",e4)
       layout.addRow("Contact No.",e5)
       layout.addRow("Address",e6)
       layout.addRow("Weight",e7)
-      layout.addRow("Admitted",e8)
+      layout.addRow("Admitted (yes/no)",e8)
       e1.textChanged.connect(f1)
       e1.setStyleSheet('color: black;')
       e2.textChanged.connect(f2)
@@ -247,6 +367,7 @@ class tabdemo(QTabWidget):
       layout.addRow(hbox)
       self.setTabText(0,"Insert Patient")
       a.clicked.connect(insert_patient);
+      a.clicked.connect(insert_pid);
       a.clicked.connect(e1.clear);
       a.clicked.connect(e2.clear);
       a.clicked.connect(e3.clear);
@@ -286,6 +407,7 @@ class tabdemo(QTabWidget):
       a.clicked.connect(e1.clear);
       a.clicked.connect(e2.clear);
       a.clicked.connect(e3.clear);
+      a.clicked.connect(e4.clear);
       self.setTabText(1,"Search Doctor")
       #print(e1.text())
       # a.clicked.connect(Alt)
@@ -307,14 +429,14 @@ class tabdemo(QTabWidget):
       e8 = QLineEdit()
       e9 = QLineEdit()
       layout.addRow("Name",e1)
-      layout.addRow("Gender",e2)
+      layout.addRow("Gender (M/F)",e2)
       layout.addRow("DOB",e3)
       layout.addRow("Qualification",e4)
       layout.addRow("Contact No.",e5)
       layout.addRow("Address",e6)
       layout.addRow("Email",e7)
       layout.addRow("Salary",e8)
-      layout.addRow("type",e9)
+      layout.addRow("type (Nurse/Consultant/Intern)",e9)
       e1.textChanged.connect(f1)
       e2.textChanged.connect(f2)
       e3.textChanged.connect(f3)
@@ -339,7 +461,7 @@ class tabdemo(QTabWidget):
       a.clicked.connect(e7.clear);
       a.clicked.connect(e8.clear);
       a.clicked.connect(e9.clear);
-      self.setTabText(2,"Insert Staff")
+      self.setTabText(2,"Update Patient Info")
       self.tab3.setLayout(layout)
       
    def tab4UI(self):
@@ -353,6 +475,7 @@ class tabdemo(QTabWidget):
       hbox = QHBoxLayout()
       a = QPushButton("List of available ward of this class")
       a.setStyleSheet('background-color: green; color: black;')
+      a.clicked.connect(Ward_by_class);
       hbox.addWidget(a)     
       layout.addRow(hbox)
       #hbox.addStretch()
@@ -360,6 +483,7 @@ class tabdemo(QTabWidget):
       layout.addRow("Ward no.",e2)
       b = QPushButton("Get ward detail")
       b.setStyleSheet('background-color: green; color: black;')
+      b.clicked.connect(Ward_det);
       hbox1 = QHBoxLayout()
       hbox1.addWidget(b)     
       layout.addRow(hbox1)
@@ -370,6 +494,7 @@ class tabdemo(QTabWidget):
       hbox2 = QHBoxLayout()
       c = QPushButton("Get bed detail")
       c.setStyleSheet('background-color: green; color: black;')
+      c.clicked.connect(Bed_det);
       hbox2.addWidget(c)     
       layout.addRow(hbox2)
       #hbox2.addStretch()
@@ -381,7 +506,7 @@ class tabdemo(QTabWidget):
 
       # a.clicked.connect(ins_periodical);
       # b.clicked.connect(showperiodical)
-      self.setTabText(3,"Update Patient Info")
+      self.setTabText(3,"Ward Info")
       self.tab4.setLayout(layout)
 
    def tab5UI(self):
@@ -439,7 +564,7 @@ class tabdemo(QTabWidget):
       layout.addRow("Date",e3)
       layout.addRow("Test_type",e4)
       layout.addRow("Lab Name",e5)
-      layout.addRow("Result",e6)
+      layout.addRow("Result (positive/negative)",e6)
       layout.addRow("Amount",e7)
       e1.textChanged.connect(f19)
       e2.textChanged.connect(f20)
@@ -517,10 +642,11 @@ class tabdemo(QTabWidget):
       hbox.addWidget(e)      
       layout.addRow(hbox)
       listWidget = QListWidget()
-      # a.clicked.connect(albk);
-      # b.clicked.connect(alpd);
-      # c.clicked.connect(alpp);
-      # d.clicked.connect(alus);
+      a.clicked.connect(aldoc);
+      b.clicked.connect(almed);
+      c.clicked.connect(aleqp);
+      d.clicked.connect(alstf);
+      e.clicked.connect(alwrd);
       self.setTabText(6,"Database")
       self.tab7.setLayout(layout)
 
@@ -536,7 +662,7 @@ class tabdemo(QTabWidget):
       e8 = QLineEdit()
       e9 = QLineEdit()
       layout.addRow("Name",e1)
-      layout.addRow("Gender",e2)
+      layout.addRow("Gender (M/F)",e2)
       layout.addRow("DOB",e3)
       layout.addRow("Department",e9)
       layout.addRow("Qualification",e4)
@@ -567,6 +693,7 @@ class tabdemo(QTabWidget):
       a.clicked.connect(e6.clear);
       a.clicked.connect(e7.clear);
       a.clicked.connect(e8.clear);
+      a.clicked.connect(e9.clear);
       self.setTabText(7,"Insert Doctor")
       #print(e1.text())
       # a.clicked.connect(Alt)
@@ -587,14 +714,14 @@ class tabdemo(QTabWidget):
       e8 = QLineEdit()
       e9 = QLineEdit()
       layout.addRow("Name",e1)
-      layout.addRow("Gender",e2)
+      layout.addRow("Gender (M/F)",e2)
       layout.addRow("DOB",e3)
       layout.addRow("Qualification",e4)
       layout.addRow("Contact No.",e5)
       layout.addRow("Address",e6)
       layout.addRow("Email",e7)
       layout.addRow("Salary",e8)
-      layout.addRow("type",e9)
+      layout.addRow("type (Nurse/Consultant/Intern)",e9)
       e1.textChanged.connect(f1)
       e2.textChanged.connect(f2)
       e3.textChanged.connect(f3)
