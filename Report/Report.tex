@@ -16,17 +16,16 @@
 
 \maketitle
 
+\tableofcontents
+
 \section{Introduction}
 \large
 In this assignment, we have to create design a database for \textbf{Hospital Management System} in \textit{mysql} for deployment at \textbf{IIT Jammu}. The details of various modules have been provided. The entities and relationships are described based on the modules. An ER diagram has been made.
 
 \section{Entities and Relationships}
-The color scheme followed to list the attributes is as follows:
-
-\item - {\color{blue}blue} for \textbf{Primary Key}.
-\item - {\color{red}red} for \textbf{Foreign Key}.
-\item - {\color{green}green} for new attributes which are described in later sections. 
-
+The color scheme followed to list the attributes is as follows: \\ \\
+{\color{blue}blue} for \textbf{Primary Key}. \\ \\
+{\color{red}red} for \textbf{Foreign Key}. \\ \\
 \begin{itemize}
     \item The following entities are required:
         \begin{itemize}
@@ -89,6 +88,7 @@ The color scheme followed to list the attributes is as follows:
             \item \textbf{Lab Report}
                 \begin{itemize}
                     \item {\color{blue}lab\_id}
+                    \item {\color{blue}report\_id}
                     \item {\color{red}patient\_id}
                     \item {\color{red}doctor\_id}
                     \item date
@@ -132,8 +132,14 @@ The color scheme followed to list the attributes is as follows:
 \subsection{1NF} The database design is already in \textbf{first normal form} since there is no field which is multi-valued.
 \subsection{2NF} It is already in \textbf{second normal form} as there is no partial dependency of any non-key attribute on any key attribute. This is because all entity tables have single attribute as key, and for the relationship tables, there are only two attributes which themselves are part of the key.
 \subsection{3NF} 
+There are no transitive dependencies so the database is in \textbf{3NF}.
+
 \subsection{BCNF} 
+It is in \textbf{BCNF} as for all functional dependencies $X \rightarrow A$, $X$ is a super key.
 
 \section{ER Diagram:}
-
+\begin{figure}[H]
+    \vspace{0pt}
+    \includegraphics[width=450pt, keepaspectratio]{ER-Diagram.png}
+\end{figure}
 \end{document}
