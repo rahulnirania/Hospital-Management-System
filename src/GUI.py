@@ -8,7 +8,7 @@ from insert_patient import add_patient
 from insert_doctor import add_doctor
 from insert_staff import add_staff
 from display_tables import *
-
+from admit_patient import *
 Name = "";
 Gender = "";
 DOB = "";
@@ -700,6 +700,8 @@ class tabdemo(QTabWidget):
       b = QPushButton("Discharge")
       a.setStyleSheet('background-color: green; color: black;')
       b.setStyleSheet('background-color: green; color: black;')
+      a.clicked.connect(Admitp)
+      b.clicked.connect(Deschp)
       hbox.addWidget(a)
       hbox.addStretch()
       hbox.addWidget(b)      

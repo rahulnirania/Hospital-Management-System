@@ -131,3 +131,10 @@ for i in range(num_wards):
 		'current_status': current_status
 	})
 	add_into_table("Ward", wards[i])
+	for j in range(no_of_beds):
+		add_into_table("Bed", {
+			"ward_id": i + 1,
+			"patient_id": "NULL"
+		})
+
+

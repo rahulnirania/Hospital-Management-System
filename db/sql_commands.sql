@@ -125,3 +125,6 @@ CREATE TABLE Patient_Staff (
 	FOREIGN KEY (patient_id) REFERENCES Patient (patient_id),
 	FOREIGN KEY (staff_id) REFERENCES Staff (staff_id)
 );
+
+ALTER TABLE Bed Modify patient_id INT NULL;
+ALTER TABLE Inpatient Modify date_of_discharge DATE NULL;
