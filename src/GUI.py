@@ -39,6 +39,7 @@ Lab_amt = "";
 curr = "";
 crit = "";
 D_name = "";
+Disease = "";
 
 def f1(text):
       print(text)
@@ -160,6 +161,10 @@ def f30(text):
       print text;
       global D_name;
       D_name = text;
+def f31(text):
+      print(text);
+      global Disease;
+      Disease = text;
 
 
 def insert_patient():
@@ -215,7 +220,8 @@ def Search_Doctor():
 def Ward_by_class():
       print(str(clss));
       a = get_column_from_table_c("ward_id", "Ward", "class", str(clss));
-      b = get_column_from_table_c("current_status", "Ward", "class", str(clss));
+      c = get_column_from_table_c("current_status", "Ward", "class", str(clss));
+      b = get_column_from_table_c("no_of_beds", "Ward", "class", str(clss));
       msg = QMessageBox()
       msg.setIcon(QMessageBox.Information)
       msg.setText("Want to see Ward by class")
@@ -223,9 +229,9 @@ def Ward_by_class():
       msg.setWindowTitle("All ward of this class");
       #a = get_column_from_table("name", "Doctor");
       #b = get_column_from_table("department", "Doctor");
-      st = "";
+      st = "\tWard  total  occupied\n";
       for i in xrange(len(a)):
-            st = st + str(i+1) + "\t" + str(a[i][0]) + "   " + str(b[i][0]) + "\n";
+            st = st + str(i+1) + "\t" + str(a[i][0]) + "  " +str(b[i][0]) + "  " + str(c[i][0]) + "\n";
       msg.setDetailedText("{}".format(st))
       msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
       msg.buttonClicked.connect(msgbtn)
@@ -451,6 +457,12 @@ def alwrd():
    retval = msg.exec_()
    print ("value of pressed message box button:"), retval
 
+def ViewApt():
+      print(str(Name), str(Pid));
+
+def FixApt():
+      print(str(Name), str(Did))
+
 class tabdemo(QTabWidget):
    def __init__(self, parent = None):
       super(tabdemo, self).__init__(parent)
@@ -468,6 +480,7 @@ class tabdemo(QTabWidget):
       self.tab7 = QWidget()
       self.tab8 = QWidget()
       self.tab9 = QWidget()
+      self.tab10 = QWidget()
       
       self.addTab(self.tab1,"Tab 1")
       self.addTab(self.tab2,"Tab 2")
@@ -478,6 +491,7 @@ class tabdemo(QTabWidget):
       self.addTab(self.tab7,"Tab 7")
       self.addTab(self.tab8,"Tab 8")
       self.addTab(self.tab9,"Tab 9")
+      self.addTab(self.tab10,"Tab 10")
       self.tab1UI()
       self.tab2UI()
       self.tab3UI()
@@ -487,6 +501,7 @@ class tabdemo(QTabWidget):
       self.tab7UI()
       self.tab8UI()
       self.tab9UI()
+      self.tab10UI()
       self.setWindowTitle("LMS System")
 
    #def patient(self):
@@ -582,7 +597,7 @@ class tabdemo(QTabWidget):
       
    def tab3UI(self):
       layout = QFormLayout()
-      e0 = QLineEdit()
+      #e0 = QLineEdit()
       e1 = QLineEdit()
       e2 = QLineEdit()
       e3 = QLineEdit()
@@ -635,11 +650,12 @@ class tabdemo(QTabWidget):
       e3 = QLineEdit()
       e4 = QLineEdit()
 
-      layout.addRow("Type of ward",e1)
+      layout.addRow("Type of ward ( I / II/ III/ General)",e1)
       hbox = QHBoxLayout()
       a = QPushButton("List of available ward of this class")
       a.setStyleSheet('background-color: green; color: black;')
       a.clicked.connect(Ward_by_class);
+      a.clicked.connect(e1.clear);
       hbox.addWidget(a)     
       layout.addRow(hbox)
       #hbox.addStretch()
@@ -648,6 +664,7 @@ class tabdemo(QTabWidget):
       b = QPushButton("Get ward detail")
       b.setStyleSheet('background-color: green; color: black;')
       b.clicked.connect(Ward_det);
+      b.clicked.connect(e2.clear);
       hbox1 = QHBoxLayout()
       hbox1.addWidget(b)     
       layout.addRow(hbox1)
@@ -659,6 +676,8 @@ class tabdemo(QTabWidget):
       c = QPushButton("Get bed detail")
       c.setStyleSheet('background-color: green; color: black;')
       c.clicked.connect(Bed_det);
+      c.clicked.connect(e3.clear);
+      c.clicked.connect(e4.clear);
       hbox2.addWidget(c)     
       layout.addRow(hbox2)
       #hbox2.addStretch()
@@ -700,8 +719,25 @@ class tabdemo(QTabWidget):
       b = QPushButton("Discharge")
       a.setStyleSheet('background-color: green; color: black;')
       b.setStyleSheet('background-color: green; color: black;')
-      a.clicked.connect(Admitp)
-      b.clicked.connect(Deschp)
+      
+      a.clicked.connect(Admitp);
+      a.clicked.connect(e1.clear);
+      a.clicked.connect(e2.clear);
+      a.clicked.connect(e3.clear);
+      a.clicked.connect(e4.clear);
+      a.clicked.connect(e5.clear);
+      a.clicked.connect(e6.clear);
+      a.clicked.connect(e7.clear);
+
+      b.clicked.connect(Deschp);
+      b.clicked.connect(e1.clear);
+      b.clicked.connect(e2.clear);
+      b.clicked.connect(e3.clear);
+      b.clicked.connect(e4.clear);
+      b.clicked.connect(e5.clear);
+      b.clicked.connect(e6.clear);
+      b.clicked.connect(e7.clear);
+      
       hbox.addWidget(a)
       hbox.addStretch()
       hbox.addWidget(b)      
@@ -744,6 +780,14 @@ class tabdemo(QTabWidget):
       hbox = QHBoxLayout()
       a = QPushButton("Insert Lab report request")
       a.setStyleSheet('background-color: green; color: black;')
+      a.clicked.connect(Ins_lr);
+      a.clicked.connect(e1.clear);
+      a.clicked.connect(e2.clear);
+      a.clicked.connect(e3.clear);
+      a.clicked.connect(e4.clear);
+      a.clicked.connect(e5.clear);
+      a.clicked.connect(e6.clear);
+      a.clicked.connect(e7.clear);
       hbox.addWidget(a)     
       layout.addRow(hbox)
       #layout.setSpacing(0);
@@ -783,6 +827,14 @@ class tabdemo(QTabWidget):
       hbox1 = QHBoxLayout()
       b = QPushButton("Extract Lab report")
       b.setStyleSheet('background-color: green; color: black;')
+      b.clicked.connect(Ext_lr);
+      b.clicked.connect(e1.clear);
+      b.clicked.connect(e2.clear);
+      b.clicked.connect(e3.clear);
+      b.clicked.connect(e4.clear);
+      b.clicked.connect(e5.clear);
+      b.clicked.connect(e6.clear);
+      b.clicked.connect(e7.clear);
       hbox1.addWidget(b)     
       layout.addRow(hbox1)
       # a.clicked.connect(ins_user);
@@ -916,6 +968,77 @@ class tabdemo(QTabWidget):
       a.clicked.connect(e9.clear);
       self.setTabText(8,"Insert Staff")
       self.tab9.setLayout(layout)
+
+   def tab10UI(self):
+      layout = QFormLayout()
+      
+      hbox10 = QHBoxLayout()
+      blank = QPushButton("View Appointment");
+      blank.setStyleSheet('background-color: pink; color: red;')
+      hbox10.addWidget(blank)
+      layout.addRow(hbox10)
+
+      e1 = QLineEdit()
+      e2 = QLineEdit()
+      layout.addRow("Patient Id",e1)
+      layout.addRow("Name",e2)
+      e1.textChanged.connect(f19)
+      e2.textChanged.connect(f1)
+      hbox = QHBoxLayout()
+      a = QPushButton("View appointment of patient")
+      a.setStyleSheet('background-color: green; color: black;')
+      a.clicked.connect(ViewApt);
+      a.clicked.connect(e1.clear);
+      a.clicked.connect(e2.clear);
+      hbox.addWidget(a)     
+      layout.addRow(hbox)
+      #layout.setSpacing(0);
+
+      hbox11 = QHBoxLayout()
+      blank = QPushButton(" ");
+      blank.setStyleSheet('background-color: pink; color: pink;')
+      hbox11.addWidget(blank)
+      layout.addRow(hbox11)
+      #layout.setSpacing(0);
+      hbox12 = QHBoxLayout()
+      blank = QPushButton(" ");
+      blank.setStyleSheet('background-color: pink; color: pink;')
+      hbox12.addWidget(blank)
+      layout.addRow(hbox12)
+      #layout.setSpacing(0);
+      hbox13 = QHBoxLayout()
+      blank = QPushButton("Set Appointment");
+      blank.resize(100,10)
+      blank.setStyleSheet('background-color: pink; color: red;')
+      hbox13.addWidget(blank)
+      layout.addRow(hbox13)
+      #layout.setSpacing(0);
+
+      # vbox = QVBoxLayout()
+      # F = QPushButton("Insert", self)
+      # F.resize(100,50);
+      # vbox.addWidget(F)     
+      # layout.addRow(vbox)
+
+      e6 = QLineEdit()
+      e7 = QLineEdit()
+      layout.addRow("Patient Id",e6)
+      layout.addRow("Doctor Id",e7)
+      e6.textChanged.connect(f19)
+      e7.textChanged.connect(f20)
+      hbox1 = QHBoxLayout()
+      b = QPushButton("Set Appoointment")
+      b.setStyleSheet('background-color: green; color: black;')
+      b.clicked.connect(FixApt);
+      b.clicked.connect(e6.clear);
+      b.clicked.connect(e7.clear);
+      hbox1.addWidget(b)     
+      layout.addRow(hbox1)
+      # a.clicked.connect(ins_user);
+      # a.clicked.connect(show_ins_status);
+      # b.clicked.connect(showuser)
+      self.setTabText(9,"Appointment")
+      self.tab10.setLayout(layout)
       
 def main():
    app = QApplication(sys.argv)
