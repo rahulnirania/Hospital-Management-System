@@ -38,6 +38,7 @@ Lab_res = "";
 Lab_amt = "";
 curr = "";
 crit = "";
+D_name = "";
 
 def f1(text):
       print(text)
@@ -155,6 +156,10 @@ def f29(text):
       print(text)
       global crit;
       crit = text;
+def f30(text):
+      print text;
+      global D_name;
+      D_name = text;
 
 
 def insert_patient():
@@ -164,9 +169,9 @@ def insert_patient():
 def insert_pid():
    msg = QMessageBox()
    msg.setIcon(QMessageBox.Information)
-   msg.setText("Confirm your detail")
+   msg.setText("Review your detail")
    #msg.setInformativeText("This is additional information")
-   msg.setWindowTitle("Detail");
+   msg.setWindowTitle("Review");
    a = get_column_from_table("name", "Doctor");
    b = get_column_from_table("department", "Doctor");
    st = "";
@@ -188,15 +193,174 @@ def insert_staff():
 
 def Search_Doctor():
       print(str(Dpt), str(curr), str(crit), str(Date));
+      a = get_column_from_table_c("name", "Doctor", "department", str(Dpt));
+      b = get_column_from_table_c("qualification", "Doctor", "department", str(Dpt));
+      c = get_column_from_table_c("doctor_id", "Doctor", "department", str(Dpt));
+      msg = QMessageBox()
+      msg.setIcon(QMessageBox.Information)
+      msg.setText("Want to see Ward by class")
+      #msg.setInformativeText("This is additional information")
+      msg.setWindowTitle("All ward of this class");
+      #a = get_column_from_table("name", "Doctor");
+      #b = get_column_from_table("department", "Doctor");
+      st = "\tDoctor\tQual\tId\n";
+      for i in xrange(len(a)):
+            st = st + str(i+1) + "\t" + a[i][0] + "\t" + b[i][0] + "\t" + str(c[i][0]) + "\n";
+      msg.setDetailedText("{}".format(st))
+      msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+      msg.buttonClicked.connect(msgbtn)
+      retval = msg.exec_()
+      print ("value of pressed message box button:"), retval
 
 def Ward_by_class():
       print(str(clss));
+      a = get_column_from_table_c("ward_id", "Ward", "class", str(clss));
+      b = get_column_from_table_c("current_status", "Ward", "class", str(clss));
+      msg = QMessageBox()
+      msg.setIcon(QMessageBox.Information)
+      msg.setText("Want to see Ward by class")
+      #msg.setInformativeText("This is additional information")
+      msg.setWindowTitle("All ward of this class");
+      #a = get_column_from_table("name", "Doctor");
+      #b = get_column_from_table("department", "Doctor");
+      st = "";
+      for i in xrange(len(a)):
+            st = st + str(i+1) + "\t" + str(a[i][0]) + "   " + str(b[i][0]) + "\n";
+      msg.setDetailedText("{}".format(st))
+      msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+      msg.buttonClicked.connect(msgbtn)
+      retval = msg.exec_()
+      print ("value of pressed message box button:"), retval
 
 def Ward_det():
       print(str(ward));
+      a = get_column_from_table_c("ward_id", "Ward", "ward_id", str(ward));
+      b = get_column_from_table_c("no_of_beds", "Ward", "ward_id", str(ward));
+      c = get_column_from_table_c("current_status", "Ward", "ward_id", str(ward));
+      msg = QMessageBox()
+      msg.setIcon(QMessageBox.Information)
+      msg.setText("Current ward status")
+      #msg.setInformativeText("This is additional information")
+      msg.setWindowTitle("status");
+      #a = get_column_from_table("name", "Doctor");
+      #b = get_column_from_table("department", "Doctor");
+      st = "";
+      for i in xrange(len(a)):
+            st = st + str(i+1) + "\t" + str(a[i][0]) + "   " + str(b[i][0])+ "   " + str(c[i][0]) + "\n";
+      msg.setDetailedText("{}".format(st))
+      msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+      msg.buttonClicked.connect(msgbtn)
+      retval = msg.exec_()
+      print ("value of pressed message box button:"), retval
 
 def Bed_det():
       print(str(bed), str(ward))
+      a = get_column_from_table_c("ward_id", "Ward", "ward_id", str(ward));
+      msg = QMessageBox()
+      msg.setIcon(QMessageBox.Information)
+      msg.setText("Current Bed status")
+      #msg.setInformativeText("This is additional information")
+      msg.setWindowTitle("status");
+      #a = get_column_from_table("name", "Doctor");
+      #b = get_column_from_table("department", "Doctor");
+      st = "";
+      for i in xrange(len(a)):
+            st = st + str(i+1) + "\t" + a[i][0]+"\n";
+      msg.setDetailedText("{}".format(st))
+      msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+      msg.buttonClicked.connect(msgbtn)
+      retval = msg.exec_()
+      print ("value of pressed message box button:"), retval
+
+def Admitp():
+      print(str(ward), str(bed), str(adm_no), str(ADM), str(Name), str(D_name))
+      a = admit(str(ward), str(bed), str(adm_no), str(ADM), str(Name), str(D_name));
+      msg = QMessageBox()
+      msg.setIcon(QMessageBox.Information)
+      msg.setText("Admit status")
+      #msg.setInformativeText("This is additional information")
+      msg.setWindowTitle("status");
+      #a = get_column_from_table("name", "Doctor");
+      #b = get_column_from_table("department", "Doctor");
+      if (a==1):
+            st = "Success";
+      elif(a == 2):
+            st = "Bed Is preoccupied";
+      else:
+            st = "No such patient";
+      msg.setDetailedText("{}".format(st))
+      msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+      msg.buttonClicked.connect(msgbtn)
+      retval = msg.exec_()
+      print ("value of pressed message box button:"), retval
+
+def Deschp():
+      print(str(adm_no), str(DCH))
+      a = discharge(str(adm_no), str(DCH));
+      msg = QMessageBox()
+      msg.setIcon(QMessageBox.Information)
+      msg.setText("Discharge status")
+      #msg.setInformativeText("This is additional information")
+      msg.setWindowTitle("status");
+      #a = get_column_from_table("name", "Doctor");
+      #b = get_column_from_table("department", "Doctor");
+      if (a==1):
+            st = "Success";
+      elif(a == 2):
+            st = "Patient was not admitted";
+      else:
+            st = "No such patient";
+      msg.setDetailedText("{}".format(st))
+      msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+      msg.buttonClicked.connect(msgbtn)
+      retval = msg.exec_()
+      print ("value of pressed message box button:"), retval
+
+def Ins_lr():
+      print(str(Pid),str(Did), str(Date), str(T_type), str(Lab_Name),str(Lab_res), str(Lab_amt) );
+      a = Insert_labrep(str(Pid),str(Did), str(Date), str(T_type), str(Lab_Name),str(Lab_res), str(Lab_amt));
+      msg = QMessageBox()
+      msg.setIcon(QMessageBox.Information)
+      msg.setText("Discharge status")
+      #msg.setInformativeText("This is additional information")
+      msg.setWindowTitle("status");
+      #a = get_column_from_table("name", "Doctor");
+      #b = get_column_from_table("department", "Doctor");
+      if (a==1):
+            st = "Success";
+      else:
+            st = "Something went wrong";
+      msg.setDetailedText("{}".format(st))
+      msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+      msg.buttonClicked.connect(msgbtn)
+      retval = msg.exec_()
+      print ("value of pressed message box button:"), retval
+
+
+def Ext_lr():
+      print(str(Pid), str(Rid))
+      a = Extract_labrep(str(Pid),str(Rid));
+      msg = QMessageBox()
+      msg.setIcon(QMessageBox.Information)
+      msg.setText("Current Report")
+      #msg.setInformativeText("This is additional information")
+      msg.setWindowTitle("status");
+      #a = get_column_from_table("name", "Doctor");
+      #b = get_column_from_table("department", "Doctor");
+      st = "";
+      for i in xrange(len(a)):
+            st = st + str(i+1) + "\t" + a[i][0]+"\n";
+
+      if(st == ""):
+            st = "Report not available/Pending";
+
+      msg.setDetailedText("{}".format(st))
+      msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+      msg.buttonClicked.connect(msgbtn)
+      retval = msg.exec_()
+      print ("value of pressed message box button:"), retval
+
+
 
 def msgbtn(i):
    print ("Button pressed is:"),i.text()
@@ -403,7 +567,7 @@ class tabdemo(QTabWidget):
       a.setStyleSheet('background-color: green; color: black;')
       hbox.addWidget(a)
       layout.addRow(hbox)
-      #a.clicked.connect(insert_doctor);
+      a.clicked.connect(Search_Doctor);
       a.clicked.connect(e1.clear);
       a.clicked.connect(e2.clear);
       a.clicked.connect(e3.clear);
@@ -504,8 +668,6 @@ class tabdemo(QTabWidget):
       e3.textChanged.connect(f15)
       e4.textChanged.connect(f14)
 
-      # a.clicked.connect(ins_periodical);
-      # b.clicked.connect(showperiodical)
       self.setTabText(3,"Ward Info")
       self.tab4.setLayout(layout)
 
@@ -517,8 +679,11 @@ class tabdemo(QTabWidget):
       e4 = QLineEdit()
       e5 = QLineEdit()
       e6 = QLineEdit()
+      e7 = QLineEdit()
+
       layout.addRow("Admission no.",e1)
       layout.addRow("Name",e2)
+      layout.addRow("Doctor Name",e7)
       layout.addRow("ward no.",e3)
       layout.addRow("Bed no.",e4)
       layout.addRow("Addmission Date",e5)
@@ -529,6 +694,7 @@ class tabdemo(QTabWidget):
       e4.textChanged.connect(f15)
       e5.textChanged.connect(f17)
       e6.textChanged.connect(f18)
+      e7.textChanged.connect(f30)
       hbox = QHBoxLayout()
       a = QPushButton("Admit")
       b = QPushButton("Discharge")
